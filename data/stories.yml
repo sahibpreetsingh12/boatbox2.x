@@ -50,12 +50,12 @@ stories:
   - intent: thankyou
   - action: utter_thankyou
 
-- story: ask repair_core
+- story: ask repair core
   steps:
   - intent: greet
   - action: utter_greet
   - intent: repair_core
-  - action: utter_repair_core
+  - action: action_repair
   - action: utter_did_that_help
   - intent: no_repair_required
   - action: utter_no_repair_required

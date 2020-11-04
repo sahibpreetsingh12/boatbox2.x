@@ -16,6 +16,8 @@ nlu:
     - Hmmm no issues with any boat part
     - yeah it's good to go
     - [core](boat_part) is good now
+    - [core](boat_part) is good
+    - [hull](boat_part) is good
 
 - intent: repair_hull
   examples: |
