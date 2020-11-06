@@ -104,3 +104,10 @@ stories:
   - action: utter_thankyou
   - intent: goodbye
   - action: utter_goodbye
+
+- story: demo
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: demo_intent
+    - action: action_demo

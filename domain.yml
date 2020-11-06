@@ -13,6 +13,7 @@ actions:
 - utter_stress_info
 - utter_thankyou
 - action_repair
+- action_demo
 
 intents:
   - cleaning_boat
@@ -27,6 +28,7 @@ intents:
   - mood_unhappy
   - repair_core
   - out_of_scope
+  - demo_intent
 
 entities:
   - boat_manufacturer

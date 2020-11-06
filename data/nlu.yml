@@ -180,3 +180,12 @@ nlu:
     - can you play some music
     - play some music for me
 
+- intent: demo_intent
+  examples: |
+    - Can i get some medicines for problem1
+    - can get some pills for problem2
+    - I need some dosage
+    - can i see the face off for prob3
+    - Nood number of doasge required for Cough
+    - Medicine i need is nothing
+
