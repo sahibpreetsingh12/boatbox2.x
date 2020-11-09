@@ -4,7 +4,7 @@ actions:
 - utter_cleaning_boat
 - utter_did_that_help
 - utter_goodbye
-- utter_greet
+# - utter_greet
 - utter_happy
 - utter_no_repair_required
 - utter_out_of_scope
@@ -14,6 +14,7 @@ actions:
 - utter_thankyou
 - action_repair
 - action_demo
+- action_greet
 
 intents:
   - cleaning_boat
@@ -50,9 +51,9 @@ responses:
   - text: Bye tc :)
   - text: Bbye it was nice talking to you.
   - text: see you soon.
-  utter_greet:
-  - text: Hi how can i help you with your boat
-  - text: I am Boatbox I can help you for various tasks like boat repair to installations
+  # utter_greet:
+  # - text: Hi how can i help you with your boat
+  # - text: I am Boatbox I can help you for various tasks like boat repair to installations
   utter_happy:
   - text: Great, carry on!
   utter_iamabot:
