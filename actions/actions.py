@@ -11,6 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+import pandas as pd
 
 
 from sentence_transformers import SentenceTransformer, util
@@ -56,14 +57,17 @@ class ActionGreet(Action):
 
     def loader(self):
         model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
-        sentences=['need some pills for PROBLEM1',
-            'Prob2 can i get some mdeicine.'
-            ,'No problem',
-            'yeah it\'s good now',
-            'I have issues with  prob3',
-            'Cracking in the hull','Hul is important']
+        df=pd.read_csv('/home/sahib/Downloads/faq-rasa.csv')
+        sentences=df['Questions'].str.replace("\n", "", case = False).tolist()
+        solutions=df['Answers'].str.replace("\n", "", case = False).tolist()
+        # sentences=['need some pills for PROBLEM1',
+        #     'Prob2 can i get some mdeicine.'
+        #     ,'No problem',
+        #     'yeah it\'s good now',
+        #     'I have issues with  prob3',
+        #     'Cracking in the hull','Hul is important']
 
-        solutions=['MED1','MED2','no_2','no_3','MED3','Need some professional help','no_6']
+        # solutions=['MED1','MED2','no_2','no_3','MED3','Need some professional help','no_6']
 
         embeddings = model.encode(sentences)
 
@@ -81,8 +85,6 @@ class ActionDemo(ActionGreet):
 
 
             model,embeddings,solutions = ActionGreet.loader(self)
-           
-            solutions=['MED1','MED2','no_2','no_3','MED3','Need some professional help','no_6']
 
             message=tracker.latest_message['text']
 
@@ -96,6 +98,7 @@ class ActionDemo(ActionGreet):
             sol_index=cos_sim[0].index(max(cos_sim[0]))
 
             solution=solutions[sol_index]
+            print(solution)
             dispatcher.utter_message(text=solution)
 
             return []
