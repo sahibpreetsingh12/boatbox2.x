@@ -90,11 +90,11 @@ class ActionDemo(ActionGreet):
 
             test=model.encode(message)
 
-            for embedding in embeddings:
-                cos_sim = util.pytorch_cos_sim(test, embedding)
-                print(cos_sim)
+            for i in range(len(solutions)):
+                cos_sim = util.pytorch_cos_sim(test, embeddings)
+                
             cos_sim=cos_sim.tolist()
-
+            print(cos_sim)
             sol_index=cos_sim[0].index(max(cos_sim[0]))
 
             solution=solutions[sol_index]

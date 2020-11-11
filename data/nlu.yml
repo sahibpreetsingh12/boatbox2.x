@@ -182,12 +182,20 @@ nlu:
 
 - intent: demo_intent
   examples: |
-    - Can i get some medicines for problem1
-    - can get some pills for problem2
-    - I need some dosage
-    - can i see the face off for prob3
-    - Nood number of doasge required for Cough
-    - Medicine i need is nothing
     - what to do my odometer is not working?
     - my odometer is not working what can can i do?
+    - odomter has stopped working.
+    - My odoometer is faulty
+    - odometer is showing wrong results
+    - [Livewell](boat_part) is working fine but no water was coming out?
+    - no water is pumped out but [livewell pump](boat_part) worked ok
+    - [Livewell pump](boat_part) ok but no water pumped 
+    - Will yamaha fuel management system work on optimax?
+    - can i use YAMAHA fuel managment on my Optimax?
+    - I want to use Yamaha Fuel Management on optimax will it be ok?
+    - Should i be concerned of using yamaha fm on my optimax?
+    - What is hypoid gear oil?
+    - hypoid gear oil what is it?
+    - can you tell me something about hypoid gear oil?
+
 

@@ -20,5 +20,8 @@ test=model.encode(test)
 for i in range(len(sentences)):
     cos_sim = util.pytorch_cos_sim(test, embeddings)
 cos_sim=cos_sim.tolist()
+print((max(cos_sim[0])))
 
-print('MAXIMUM SIMILARITY IS :- ',cos_sim.index(max(cos_sim)))
+sol_index=cos_sim[0].index(max(cos_sim[0]))
+
+print(solutions[sol_index])
