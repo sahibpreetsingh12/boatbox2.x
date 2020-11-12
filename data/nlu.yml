@@ -182,11 +182,11 @@ nlu:
 
 - intent: demo_intent
   examples: |
-    - what to do my odometer is not working?
-    - my odometer is not working what can can i do?
-    - odomter has stopped working.
-    - My odoometer is faulty
-    - odometer is showing wrong results
+    - what to do my [odometer](boat_part) is not working?
+    - my [odometer](boat_part) is not working what can can i do?
+    - [odometer](boat_part) has stopped working.
+    - My [odoometer](boat_part) is faulty
+    - [odometer](boat_part) is showing wrong results
     - [Livewell](boat_part) is working fine but no water was coming out?
     - no water is pumped out but [livewell pump](boat_part) worked ok
     - [Livewell pump](boat_part) ok but no water pumped 
@@ -197,5 +197,6 @@ nlu:
     - What is hypoid gear oil?
     - hypoid gear oil what is it?
     - can you tell me something about hypoid gear oil?
+    - [Livewell](boat_part) is working fine but not pumping water and [odometer](boat_part) is not working
 
 

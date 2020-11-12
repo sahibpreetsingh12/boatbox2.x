@@ -1,27 +1,33 @@
 from sentence_transformers import SentenceTransformer, util
+import warnings
+
 import pandas as pd
-
+warnings.filterwarnings("ignore")
 model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
-test=str(input())
 
-# sentences=['Now my boat is working fine',
-# 'I have no issues with my boat now.'
-# ,'each part of my boat is working fine',
-# 'yeah it\'s good now',
-# 'I have issues with  my hull',
-# 'Cracking in the hull','Hull is integral part of boat']
+test=str(input("INPUT :-"))
+
 df=pd.read_csv('/home/sahib/Downloads/faq-rasa.csv')
 sentences=df['Questions'].str.replace("\n", "", case = False).tolist()
 solutions=df['Answers'].str.replace("\n", "", case = False).tolist()
-
 #Encode all sentences
-embeddings = model.encode(sentences)
-test=model.encode(test)
-for i in range(len(sentences)):
-    cos_sim = util.pytorch_cos_sim(test, embeddings)
+def input_sent(sentences):
+    embeddings = model.encode(sentences)
+    return embeddings
+
+embeddings=input_sent(sentences)
+
+def encode(test):
+    test=model.encode(test)
+    return test
+test=encode(test)
+
+cos_sim = util.pytorch_cos_sim(test, embeddings)
 cos_sim=cos_sim.tolist()
-print((max(cos_sim[0])))
+
+
+
 
 sol_index=cos_sim[0].index(max(cos_sim[0]))
 
-print(solutions[sol_index])
+print('SOLUTION IS :-',solutions[sol_index])

@@ -60,14 +60,6 @@ class ActionGreet(Action):
         df=pd.read_csv('/home/sahib/Downloads/faq-rasa.csv')
         sentences=df['Questions'].str.replace("\n", "", case = False).tolist()
         solutions=df['Answers'].str.replace("\n", "", case = False).tolist()
-        # sentences=['need some pills for PROBLEM1',
-        #     'Prob2 can i get some mdeicine.'
-        #     ,'No problem',
-        #     'yeah it\'s good now',
-        #     'I have issues with  prob3',
-        #     'Cracking in the hull','Hul is important']
-
-        # solutions=['MED1','MED2','no_2','no_3','MED3','Need some professional help','no_6']
 
         embeddings = model.encode(sentences)
 
@@ -90,16 +82,21 @@ class ActionDemo(ActionGreet):
 
             test=model.encode(message)
 
-            for i in range(len(solutions)):
-                cos_sim = util.pytorch_cos_sim(test, embeddings)
+           
+            # for i in range(len(solutions)):
+            cos_sim = util.pytorch_cos_sim(test, embeddings)
                 
             cos_sim=cos_sim.tolist()
-            print(cos_sim)
+        
             sol_index=cos_sim[0].index(max(cos_sim[0]))
 
+            p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
             solution=solutions[sol_index]
-            print(solution)
+           
             dispatcher.utter_message(text=solution)
+            # part= tracker.slots()
+             # print(solution)
+            print(tracker.slots)
 
             return []
 
