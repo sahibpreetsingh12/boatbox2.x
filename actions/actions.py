@@ -24,8 +24,9 @@ class ActionRepair(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        part= tracker.get_slot("boat_part")
+        parts= tracker.get_slot("boat_part")
 
+        part=parts[0] # we have extracted a list so extracting just the first entity
         if part=='hull':
             print("yes")
             dispatcher.utter_message(text="""There are two scenarios where a %s can be damaged – one is when the
@@ -82,22 +83,39 @@ class ActionDemo(ActionGreet):
 
             test=model.encode(message)
 
+            parts = tracker.get_slot("boat_part") # this is a list slot so we will store all entities 
+                                                    # extracted from an intent
+
            
-            # for i in range(len(solutions)):
-            cos_sim = util.pytorch_cos_sim(test, embeddings)
+            sols_temp=pd.DataFrame(solutions) # converting our series to datatframe
+
+
+            sols_temp.rename(columns = {0:'solutions'},  inplace = True)  # renaming the column
+
+            checker= sols_temp[sols_temp['solutions'].str.contains(parts[0],na=False)]  # checking if the extracted entity
+            # is present or not and if yes in which answers
+            
+            checker_index=list(checker.index.values) # storing the indexes of rows that were having our entity
+
+            sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
+
+            sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
+
+            sols_temp.drop(columns=['index'],inplace=True) # dropping that unnecessary index column
+
+            emb= [embeddings[i] for i in checker_index] # stroing list of only those embeddings of questions 
+            # whose corresponding answer had the entity
+
+            cos_sim = util.pytorch_cos_sim(test, emb) #  cosine similarity
                 
             cos_sim=cos_sim.tolist()
-        
+            
             sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
 
-            p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
-            solution=solutions[sol_index]
-           
-            dispatcher.utter_message(text=solution)
-            # part= tracker.slots()
-             # print(solution)
-            print(tracker.slots)
+            # # p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
+            solution=sols_temp.iloc[[sol_index]]['solutions'][0]
 
+            dispatcher.utter_message(text=solution)
             return []
 
     
