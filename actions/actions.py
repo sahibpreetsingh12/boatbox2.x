@@ -11,6 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+import pandas as pd
 
 
 from sentence_transformers import SentenceTransformer, util
@@ -39,7 +40,33 @@ class ActionRepair(Action):
 
         return []
 
-class ActionDemo(Action):
+
+
+class ActionGreet(Action):
+
+    def name(self) -> Text:
+        return "action_greet"
+    
+    def run(self ,dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
+
+            dispatcher.utter_message(text="Hi how can i help you with your boat")
+
+            return []
+
+    def loader(self):
+        model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
+        df=pd.read_csv('/home/sahib/Downloads/faq-rasa.csv')
+        sentences=df['Questions'].str.replace("\n", "", case = False).tolist()
+        solutions=df['Answers'].str.replace("\n", "", case = False).tolist()
+
+        embeddings = model.encode(sentences)
+
+        return [model,embeddings,solutions]
+
+
+class ActionDemo(ActionGreet):
 
     def name(self) -> Text:
         return "action_demo"
@@ -49,37 +76,28 @@ class ActionDemo(Action):
             domain: Dict[Text,Any]) -> List[Dict[Text,Any]]: 
 
 
-            model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
-            sentences=['need some pills for PROBLEM1',
-            'Prob2 can i get some mdeicine.'
-            ,'No problem',
-            'yeah it\'s good now',
-            'I have issues with  prob3',
-            'Cracking in the hull','Hul is important']
-
-            solutions=['MED1','MED2','no_2','no_3','MED3','Need some professional help','no_6']
-
-            #Encode all sentences
-            def input_sent(sentences):
-                embeddings = model.encode(sentences)
-                return embeddings
-
-
-
-            embeddings=input_sent(sentences)
-
+            model,embeddings,solutions = ActionGreet.loader(self)
 
             message=tracker.latest_message['text']
 
             test=model.encode(message)
 
-            for i in range(len(sentences)):
-                cos_sim = util.pytorch_cos_sim(test, embeddings)
+           
+            # for i in range(len(solutions)):
+            cos_sim = util.pytorch_cos_sim(test, embeddings)
+                
             cos_sim=cos_sim.tolist()
+        
+            sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
 
-            sol_index=cos_sim[0].index(max(cos_sim[0]))
-
+            p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
             solution=solutions[sol_index]
+           
             dispatcher.utter_message(text=solution)
+            # part= tracker.slots()
+             # print(solution)
+            print(tracker.slots)
 
             return []
+
+    
