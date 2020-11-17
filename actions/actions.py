@@ -88,7 +88,7 @@ class ActionDemo(ActionGreet):
                 
             cos_sim=cos_sim.tolist()
         
-            sol_index=cos_sim[0].index(max(cos_sim[0]))
+            sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
 
             p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
             solution=solutions[sol_index]

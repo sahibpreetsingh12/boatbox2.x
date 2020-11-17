@@ -1,0 +1,14 @@
+# to be done
+sentence based parsing
+and check each senetence is related to boats
+1. break senetence
+2. ner
+3. check for sentence similarity
+4. set a threshold
+
+
+have to ask questions for making rich user interface at boatbox
+
+
+1. dual encoder (for classification purposes)
+2. can use transformer in place of LSTM.
