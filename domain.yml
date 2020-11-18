@@ -12,7 +12,7 @@ actions:
 - utter_stress_info
 - utter_thankyou
 - action_repair
-- action_demo
+- action_faq
 - action_greet
 
 intents:
@@ -28,7 +28,7 @@ intents:
   - mood_unhappy
   - repair_core
   - out_of_scope
-  - demo_intent
+  - faq
 
 entities:
   - boat_manufacturer

@@ -105,9 +105,9 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: demo
+- story: faq
   steps:
     - intent: greet
     - action: action_greet
-    - intent: demo_intent
-    - action: action_demo
+    - intent: faq
+    - action: action_faq
