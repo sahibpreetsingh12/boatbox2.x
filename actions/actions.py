@@ -86,24 +86,27 @@ class ActionFAQ(ActionGreet):
             parts = tracker.get_slot("boat_part") # this is a list slot so we will store all entities 
                                                     # extracted from an intent
 
+            # to search all the strings in a list wthether in column or not                                     
+            # https://stackoverflow.com/questions/17972938/check-if-a-string-in-a-pandas-dataframe-column-is-in-a-list-of-strings
+            pattern = '|'.join(parts)
+
            
             sols_temp=pd.DataFrame(solutions) # converting our series to datatframe
 
 
             sols_temp.rename(columns = {0:'solutions'},  inplace = True)  # renaming the column
 
-            checker= sols_temp[sols_temp['solutions'].str.contains(parts[0],na=False)]  # checking if the extracted entity
+            checker= sols_temp[sols_temp['solutions'].str.contains(pattern,na=False)]  # checking if the extracted entity
             # is present or not and if yes in which answers
             
             checker_index=list(checker.index.values) # storing the indexes of rows that were having our entity
 
             sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
 
-            print(sols_temp)
-
             sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
 
             sols_temp.drop(columns=['index'],inplace=True) # dropping that unnecessary index column
+
 
             emb= [embeddings[i] for i in checker_index] # stroing list of only those embeddings of questions 
             # whose corresponding answer had the entity
@@ -111,11 +114,12 @@ class ActionFAQ(ActionGreet):
             cos_sim = util.pytorch_cos_sim(test, emb) #  cosine similarity
                 
             cos_sim=cos_sim.tolist()
-            
+
+            print(cos_sim)
             sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
 
-            # # p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
-            solution=sols_temp.iloc[[sol_index]]['solutions'][0]
+         # to get values from series ( this series conatains answer that was selected on behalf of highest cos similarity)
+            solution=sols_temp.iloc[[sol_index]]['solutions'].values[0] 
 
             dispatcher.utter_message(text=solution)
             return []
