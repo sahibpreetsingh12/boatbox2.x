@@ -67,10 +67,10 @@ class ActionGreet(Action):
         return [model,embeddings,solutions]
 
 
-class ActionDemo(ActionGreet):
+class ActionFAQ(ActionGreet):
 
     def name(self) -> Text:
-        return "action_demo"
+        return "action_faq"
     
     def run(self ,dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -98,6 +98,8 @@ class ActionDemo(ActionGreet):
             checker_index=list(checker.index.values) # storing the indexes of rows that were having our entity
 
             sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
+
+            print(sols_temp)
 
             sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
 

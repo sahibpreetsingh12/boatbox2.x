@@ -181,7 +181,7 @@ nlu:
     - can you play some music
     - play some music for me
 
-- intent: demo_intent
+- intent: faq
   examples: |
     - what to do my [odometer](boat_part) is not working?
     - my [odometer](boat_part) is not working what can can i do?
