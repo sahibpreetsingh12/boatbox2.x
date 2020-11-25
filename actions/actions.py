@@ -86,38 +86,55 @@ class ActionFAQ(ActionGreet):
             parts = tracker.get_slot("boat_part") # this is a list slot so we will store all entities 
                                                     # extracted from an intent
 
-           
+            print(parts,len(parts))
+
+            print('\n')
+
             sols_temp=pd.DataFrame(solutions) # converting our series to datatframe
-
-
+             
             sols_temp.rename(columns = {0:'solutions'},  inplace = True)  # renaming the column
 
-            checker= sols_temp[sols_temp['solutions'].str.contains(parts[0],na=False)]  # checking if the extracted entity
-            # is present or not and if yes in which answers
-            
-            checker_index=list(checker.index.values) # storing the indexes of rows that were having our entity
-
-            sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
-
-            print(sols_temp)
-
-            sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
-
-            sols_temp.drop(columns=['index'],inplace=True) # dropping that unnecessary index column
-
-            emb= [embeddings[i] for i in checker_index] # stroing list of only those embeddings of questions 
-            # whose corresponding answer had the entity
-
-            cos_sim = util.pytorch_cos_sim(test, emb) #  cosine similarity
+           
+            if len(parts)!=0: # if no entity is extracted from user intent
                 
-            cos_sim=cos_sim.tolist()
-            
-            sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
 
-            # # p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
-            solution=sols_temp.iloc[[sol_index]]['solutions'][0]
+                checker= sols_temp[sols_temp['solutions'].str.contains(parts[0],na=False)]  # checking if the extracted entity
+                # is present or not and if yes in which answers
+                
+                checker_index=list(checker.index.values) # storing the indexes of rows that were having our entity
 
-            dispatcher.utter_message(text=solution)
-            return []
+                sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
+
+                if len(sols_temp) !=0: # if no solution is found after matching
+
+                    sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
+
+                    sols_temp.drop(columns=['index'],inplace=True) # dropping that unnecessary index column
+
+                    emb= [embeddings[i] for i in checker_index] # stroing list of only those embeddings of questions 
+                    # whose corresponding answer had the entity
+
+                    cos_sim = util.pytorch_cos_sim(test, emb) #  cosine similarity
+                        
+                    cos_sim=cos_sim.tolist()
+                    
+                    sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
+
+                    # # p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
+                    solution=sols_temp.iloc[[sol_index]]['solutions'][0]
+
+                    dispatcher.utter_message(text=solution)
+                    return []
+                else:
+                    dispatcher.utter_message(text="Sorry  But can you Rephrase it again")
+
+                    return []
+
+
+            else:
+                dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution for
+                your query. But you can rephrase and Try It Again :) """)
+
+                return []
 
     
