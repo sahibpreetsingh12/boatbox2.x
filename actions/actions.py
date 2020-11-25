@@ -11,6 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSet
 import pandas as pd
 
 
@@ -39,7 +40,7 @@ class ActionRepair(Action):
             dispatcher.utter_message(text="""%s damage needs a professional help I would say pls visit a boat 
             repair shop near you"""%(part))
 
-        return []
+        return [SlotSet("boat_part", None)]
 
 
 
@@ -125,17 +126,16 @@ class ActionFAQ(ActionGreet):
                     solution=sols_temp.iloc[[sol_index]]['solutions'][0]
 
                     dispatcher.utter_message(text=solution)
-                    return []
+                    return [SlotSet("boat_part", None)]
                 else:
                     dispatcher.utter_message(text="Sorry  But can you Rephrase it again")
 
-                    return []
+                    return [SlotSet("boat_part", None)]
 
 
             else:
                 dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution for
                 your query. But you can rephrase and Try It Again :) """)
 
-                return []
-
+                return [SlotSet("boat_part", None)]
     

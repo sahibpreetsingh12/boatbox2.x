@@ -64,7 +64,6 @@ responses:
       repair, a basic fibreglass repair kit is used, using which the damaged section
       is removed in a circular cut. The part can be then patched using either fibreglass
       and the proper adhesives or the putties available.
-  
   utter_thankyou:
   - text: It was  my pleasure to help you Hope I can help you in future
 actions:
