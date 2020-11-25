@@ -64,9 +64,7 @@ responses:
       repair, a basic fibreglass repair kit is used, using which the damaged section
       is removed in a circular cut. The part can be then patched using either fibreglass
       and the proper adhesives or the putties available.
-  utter_stress_info:
-  - text: It's ok to be streessed it fun time get some good exercise.But If more stressed
-      get Some YOGA or Brisk walk is perfect as well.
+  
   utter_thankyou:
   - text: It was  my pleasure to help you Hope I can help you in future
 actions:
@@ -78,7 +76,6 @@ actions:
 - utter_out_of_scope
 - utter_repair_core
 - utter_repair_hull
-- utter_stress_info
 - utter_thankyou
 - action_repair
 - action_faq
