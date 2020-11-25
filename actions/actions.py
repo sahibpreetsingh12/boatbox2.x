@@ -105,7 +105,8 @@ class ActionFAQ(ActionGreet):
 
                 sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
 
-                if len(sols_temp) !=0: # if no solution is found after cosine similarity
+                if len(sols_temp) !=0: # if no solution is found after cosine similarity that can be because some 
+                    # entities will not be present in your solution set
 
                     sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
 
