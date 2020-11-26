@@ -12,3 +12,7 @@ have to ask questions for making rich user interface at boatbox
 
 1. dual encoder (for classification purposes)
 2. can use transformer in place of LSTM.
+
+
+
+Have to see if we CAN solve the problem of entity not found using retrieval intents

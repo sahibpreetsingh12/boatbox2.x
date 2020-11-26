@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: no_repair_required
   examples: |
@@ -18,7 +17,6 @@ nlu:
     - [core](boat_part) is good now
     - [core](boat_part) is good
     - [hull](boat_part) is good
-
 - intent: repair_hull
   examples: |
     - I have issues with my [HULL](boat_part)
@@ -33,9 +31,6 @@ nlu:
     - i have a problem regarding the [hull](boat_part)
     - [hull](boat_part) is not good
     - need some [hull](boat_part) support
-
-    
-
 - intent: greet
   examples: |
     - hey
@@ -55,7 +50,6 @@ nlu:
     - how's you doing boatbox
     - how are you boatbox
     - can you help me
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -69,7 +63,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: thankyou
   examples: |
     - Thankyou it worked
@@ -86,7 +79,6 @@ nlu:
     - your suggestions worked out
     - nice tip
     - thnx
-
 - intent: affirm
   examples: |
     - yes
@@ -95,8 +87,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
-
 - intent: deny
   examples: |
     - no
@@ -106,7 +96,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -123,7 +112,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -140,12 +128,11 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: cleaning_boat
   examples: |
     - can you help me cleaning
     - Hi pls help me with cleaning
-    - cleaning products suggestions 
+    - cleaning products suggestions
     - wax removal tips pls
     - i want to remove stains from my [robalo](boat_manufacturer)
     - wanted to clean my [ranger](boat_manufacturer) can you help
@@ -154,7 +141,6 @@ nlu:
     - huge marks on my 22 ft boat how to clean it.
     - dirty stains on my 26 foot [robalo](boat_manufacturer) how to remove them
     - how to remove wax from my boat
-
 - intent: repair_core
   examples: |
     - I have issues with my [core](boat_part) can u help
@@ -165,7 +151,7 @@ nlu:
     - major issues with deck fittings and [core](boat_part) is getting damaged
     - [core](boat_part) repair can you help me
     - [core](boat_part) is not good
-
+    - need some support for [core](boat_part) as well
 - intent: out_of_scope
   examples: |
     - i have changed my mind
@@ -180,7 +166,6 @@ nlu:
     - can you suggest me some grocery shopping places
     - can you play some music
     - play some music for me
-
 - intent: faq
   examples: |
     - what to do my [odometer](boat_part) is not working?
@@ -190,14 +175,15 @@ nlu:
     - [odometer](boat_part) is showing wrong results
     - [Livewell](boat_part) is working fine but no water was coming out?
     - no water is pumped out but [livewell pump](boat_part) worked ok
-    - [Livewell pump](boat_part) ok but no water pumped 
-    - Will yamaha fuel management system work on optimax?
-    - can i use YAMAHA fuel managment on my Optimax?
-    - I want to use Yamaha Fuel Management on optimax will it be ok?
-    - Should i be concerned of using yamaha fm on my optimax?
+    - [Livewell pump](boat_part) ok but no water pumped
+    - Will yamaha fuel management system work on [optimax](engine_series)?
+    - can i use YAMAHA fuel managment on my [Optimax](engine_series)?
+    - can we use yamaha fuel managment iwth my [optimax](engine_series)
+    - I want to use Yamaha Fuel Management on [optimax](engine_series) will it be ok?
+    - Should i be concerned of using yamaha fm on my [optimax](engine_series)?
+    - can i use [evinrude r-etc](engine_series) for my new boat?
+    - from last 2 years i am having a boat but now i want to use Yamaha Fuel managment on my [OPTIMAX](engine_series)?
     - What is hypoid gear oil?
     - hypoid gear oil what is it?
     - can you tell me something about hypoid gear oil?
     - [Livewell](boat_part) is working fine but not pumping water and [odometer](boat_part) is not working
-
-

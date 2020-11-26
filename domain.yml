@@ -18,6 +18,7 @@ intents:
 entities:
 - boat_manufacturer
 - boat_part
+- engine_series
 slots:
   boat_part:
     type: list
