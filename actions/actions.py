@@ -29,7 +29,7 @@ class ActionRepair(Action):
 
         part=parts[0] # we have extracted a list so extracting just the first entity
         if part=='hull':
-            print("yes")
+         
             dispatcher.utter_message(text="""There are two scenarios where a %s can be damaged – one is when the
       hull is damaged above the waterline, the second when it is damaged below the
       waterline.For first scenario take it out and dry it thoroughly.For hull repair,
@@ -85,12 +85,23 @@ class ActionFAQ(ActionGreet):
             test=model.encode(message)
 
             parts = tracker.get_slot("boat_part") # this is a list slot so we will store all entities 
-                                                    # extracted from an intent
+                                                    # extracted from an intent but if no entity is extracted
+                                                    # tracker returns None Type value
+
+            parts=( [] if parts is None else parts)  # to convert None type to empty list
+
+            engine_series=tracker.get_slot("engine_series")
+
+            engine_series= ( [] if engine_series is None else engine_series) # to convert None type to empty list
+
+            # Now after getting all diffrent types of slots No we have added them to parts variable 
+            # and then will make pattern to see any of these are available in our answers file
+            parts=parts+engine_series
             
             sols_temp=pd.DataFrame(solutions) # converting our series to datatframe
              
             sols_temp.rename(columns = {0:'solutions'},  inplace = True)  # renaming the column
-
+           
             try: # to handle any kind of exceptions in code
                 if len(parts)!=0 : # if an entity is extracted from user intent
 
@@ -126,26 +137,26 @@ class ActionFAQ(ActionGreet):
                         solution=sols_temp.iloc[[sol_index]]['solutions'][0]
 
                         dispatcher.utter_message(text=solution)
-                        return [SlotSet("boat_part", None)]
+                        return [SlotSet("boat_part", None),SlotSet("engine_series", None)]
                     else:
                         dispatcher.utter_message(text="Sorry  But can you Rephrase it again")
 
-                        return [SlotSet("boat_part", None)]
+                        return [SlotSet("boat_part", None),SlotSet("engine_series", None)]
                 
 
 
                 else:
-                    dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution for
-                    your query. But you can rephrase and Try It Again :) """)
+                    dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution in my dictionary
+                     for your query. But you can rephrase and Try It Again :) """)
 
-                    return [SlotSet("boat_part", None)]
+                    return [SlotSet("boat_part", None),SlotSet("engine_series", None)]
             
             except:
 
                 dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution for
                     your query. But you can rephrase and Try It Again :) """)
 
-                return [SlotSet("boat_part", None)]
+                return [SlotSet("boat_part", None),SlotSet("engine_series", None)]
 
 
     

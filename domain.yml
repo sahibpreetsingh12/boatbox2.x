@@ -22,7 +22,11 @@ entities:
 slots:
   boat_part:
     type: list
-    initial_value: None
+    initial_value: []
+    influence_conversation: false
+  engine_series:
+    type: list
+    initial_value: []
     influence_conversation: false
 responses:
   utter_cheer_up:

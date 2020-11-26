@@ -14,5 +14,11 @@ have to ask questions for making rich user interface at boatbox
 2. can use transformer in place of LSTM.
 
 
-
+#
 Have to see if we CAN solve the problem of entity not found using retrieval intents
+
+# Up error is sorted
+
+# now have to see about Lookups and synonyms and how to use retrieval intents
+
+# have to inculcate threshold value concept in cosine similarity concept
