@@ -166,6 +166,8 @@ nlu:
     - can you suggest me some grocery shopping places
     - can you play some music
     - play some music for me
+    - who is US president
+    - who is President of USA?
 - intent: faq
   examples: |
     - what to do my [odometer](boat_info) is not working?

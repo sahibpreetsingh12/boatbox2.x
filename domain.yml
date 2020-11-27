@@ -25,15 +25,13 @@ slots:
     type: list
     initial_value: []
     influence_conversation: false
-
   engine_series:
     type: list
     initial_value: []
     influence_conversation: false
 responses:
-
-  utter_ask_rephrase:
-  - text:  I'm sorry, I didn't quite understand that. Could you rephrase?
+  utter_please_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -58,17 +56,16 @@ responses:
   - text: That's such a great news CHEERS
   - text: Perfect
   utter_out_of_scope:
-  - text:  I'm sorry, I didn't quite understand that. Could you rephrase?
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
   - text: Sorry But i couldn't understand it I think it's out of my scope :).
   utter_thankyou:
   - text: It was  my pleasure to help you Hope I can help you in future
 
 rules:
-- rule: Implementation of the Two-Stage-Fallback
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
   steps:
   - intent: nlu_fallback
-  - action: action_two_stage_fallback
-  - active_loop: action_two_stage_fallback
+  - action: utter_please_rephrase
 actions:
 - utter_cleaning_boat
 - utter_did_that_help
