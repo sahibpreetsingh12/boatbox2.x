@@ -17,13 +17,14 @@ intents:
 - faq
 entities:
 - boat_manufacturer
-- boat_part
+- boat_info
 - engine_series
 slots:
-  boat_part:
+  boat_info:
     type: list
     initial_value: []
     influence_conversation: false
+
   engine_series:
     type: list
     initial_value: []
@@ -55,20 +56,6 @@ responses:
   utter_out_of_scope:
   - text: Ok can you please provide me some relevant info so that I can help you.
   - text: Sorry But i couldn't understand it I think it's out of my scope :).
-  utter_repair_core:
-  - text: Core damage primarily happens due to the intrusion of water through hull-fittings
-      or deck-fittings Repairing the damage to the core involves removing the fibreglass
-      skin to expose the core, which is as good as making it anew. The basic solution
-      to repairing the core is to open the affected area, remove any water and delaminated
-      core, and insert a replacement core that re-establishes the structural integrity
-      of the boat.
-  utter_repair_hull:
-  - text: There are two scenarios where a  {boat_part} can be damaged – one is when
-      the hull is damaged above the waterline, the second when it is damaged below
-      the waterline.For first scenario take it out and dry it thoroughly.For hull
-      repair, a basic fibreglass repair kit is used, using which the damaged section
-      is removed in a circular cut. The part can be then patched using either fibreglass
-      and the proper adhesives or the putties available.
   utter_thankyou:
   - text: It was  my pleasure to help you Hope I can help you in future
 actions:
@@ -78,8 +65,6 @@ actions:
 - utter_happy
 - utter_no_repair_required
 - utter_out_of_scope
-- utter_repair_core
-- utter_repair_hull
 - utter_thankyou
 - action_repair
 - action_faq

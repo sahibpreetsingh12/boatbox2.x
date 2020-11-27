@@ -1,3 +1,4 @@
+# SARAB SIR LAST MEET
 # to be done
 sentence based parsing
 and check each senetence is related to boats
@@ -14,6 +15,7 @@ have to ask questions for making rich user interface at boatbox
 2. can use transformer in place of LSTM.
 
 
+# MY section
 #
 Have to see if we CAN solve the problem of entity not found using retrieval intents
 
@@ -22,3 +24,18 @@ Have to see if we CAN solve the problem of entity not found using retrieval inte
 # now have to see about Lookups and synonyms and how to use retrieval intents
 
 # have to inculcate threshold value concept in cosine similarity concept
+
+# have to include wrong words as synoym for some words in Boat part entity
+
+
+
+## KAMLJIT MASTERCLASS
+1.
+    1. ask username
+    2. Top 20 tweets of him and his followers
+    3. Important keywords 
+        we then recommend
+
+2. see trends
+    1. see parameters and then rank it.
+

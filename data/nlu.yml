@@ -6,31 +6,31 @@ nlu:
     - I have no issues with my boat now.
     - each part of my boat is working fine
     - yeah it's good now
-    - My [hull](boat_part) is good now
-    - [hull](boat_part) is working fine
+    - My [hull](boat_info) is good now
+    - [hull](boat_info) is working fine
     - I have no issue with core
-    - [core](boat_part) is working compltely fine
-    - hey my [hull](boat_part) is good now
+    - [core](boat_info) is working compltely fine
+    - hey my [hull](boat_info) is good now
     - perfectly fine working
     - Hmmm no issues with any boat part
     - yeah it's good to go
-    - [core](boat_part) is good now
-    - [core](boat_part) is good
-    - [hull](boat_part) is good
+    - [core](boat_info) is good now
+    - [core](boat_info) is good
+    - [hull](boat_info) is good
 - intent: repair_hull
   examples: |
-    - I have issues with my [HULL](boat_part)
-    - my [hull](boat_part) is damaged.
-    - [HULL](boat_part) dmamaged completely.
-    - [hull](boat_part) destroyed completely.
-    - I have minor issues with my [hull](boat_part)
-    - cracks in my [hull](boat_part)
-    - major issues with fibreglass of [hull](boat_part)
-    - [hull](boat_part) repair can you help me
-    - can you suggest some tips to repair my [hull](boat_part)
-    - i have a problem regarding the [hull](boat_part)
-    - [hull](boat_part) is not good
-    - need some [hull](boat_part) support
+    - I have issues with my [HULL](boat_info)
+    - my [hull](boat_info) is damaged.
+    - [HULL](boat_info) dmamaged completely.
+    - [hull](boat_info) destroyed completely.
+    - I have minor issues with my [hull](boat_info)
+    - cracks in my [hull](boat_info)
+    - major issues with fibreglass of [hull](boat_info)
+    - [hull](boat_info) repair can you help me
+    - can you suggest some tips to repair my [hull](boat_info)
+    - i have a problem regarding the [hull](boat_info)
+    - [hull](boat_info) is not good
+    - need some [hull](boat_info) support
 - intent: greet
   examples: |
     - hey
@@ -143,15 +143,15 @@ nlu:
     - how to remove wax from my boat
 - intent: repair_core
   examples: |
-    - I have issues with my [core](boat_part) can u help
-    - my [CORE](boat_part) is damaged need some tips.
-    - [core](boat_part) damaged completely.
-    - I have minor issues with my [CORE](boat_part)
-    - water entering through [hull](boat_part) fittings in my [core](boat_part) pls help
-    - major issues with deck fittings and [core](boat_part) is getting damaged
-    - [core](boat_part) repair can you help me
-    - [core](boat_part) is not good
-    - need some support for [core](boat_part) as well
+    - I have issues with my [core](boat_info) can u help
+    - my [CORE](boat_info) is damaged need some tips.
+    - [core](boat_info) damaged completely.
+    - I have minor issues with my [CORE](boat_info)
+    - water entering through [hull](boat_info) fittings in my [core](boat_info) pls help
+    - major issues with deck fittings and [core](boat_info) is getting damaged
+    - [core](boat_info) repair can you help me
+    - [core](boat_info) is not good
+    - need some support for [core](boat_info) as well
 - intent: out_of_scope
   examples: |
     - i have changed my mind
@@ -168,14 +168,14 @@ nlu:
     - play some music for me
 - intent: faq
   examples: |
-    - what to do my [odometer](boat_part) is not working?
-    - my [odometer](boat_part) is not working what can can i do?
-    - [odometer](boat_part) has stopped working.
-    - My [odoometer](boat_part) is faulty
-    - [odometer](boat_part) is showing wrong results
-    - [Livewell](boat_part) is working fine but no water was coming out?
-    - no water is pumped out but [livewell pump](boat_part) worked ok
-    - [Livewell pump](boat_part) ok but no water pumped
+    - what to do my [odometer](boat_info) is not working?
+    - my [odometer](boat_info) is not working what can can i do?
+    - [odometer](boat_info) has stopped working.
+    - My [odoometer](boat_info) is faulty
+    - [odometer](boat_info) is showing wrong results
+    - [Livewell](boat_info) is working fine but no water was coming out?
+    - no water is pumped out but [livewell pump](boat_info) worked ok
+    - [Livewell pump](boat_info) ok but no water pumped
     - Will yamaha fuel management system work on [optimax](engine_series)?
     - can i use YAMAHA fuel managment on my [Optimax](engine_series)?
     - can we use yamaha fuel managment iwth my [optimax](engine_series)
@@ -186,4 +186,5 @@ nlu:
     - What is hypoid gear oil?
     - hypoid gear oil what is it?
     - can you tell me something about hypoid gear oil?
-    - [Livewell](boat_part) is working fine but not pumping water and [odometer](boat_part) is not working
+    - [Livewell](boat_info) is working fine but not pumping water and [odometer](boat_info) is not working
+    - hi can get some info about helm
