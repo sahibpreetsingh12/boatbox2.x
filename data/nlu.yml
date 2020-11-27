@@ -31,6 +31,7 @@ nlu:
     - i have a problem regarding the [hull](boat_info)
     - [hull](boat_info) is not good
     - need some [hull](boat_info) support
+    - need  some [hull](boat_info) info
 - intent: greet
   examples: |
     - hey
@@ -168,6 +169,7 @@ nlu:
     - play some music for me
     - who is US president
     - who is President of USA?
+    - what about deep learning books
 - intent: faq
   examples: |
     - what to do my [odometer](boat_info) is not working?
