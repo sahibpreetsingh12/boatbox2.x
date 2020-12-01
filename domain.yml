@@ -65,7 +65,7 @@ rules:
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
   steps:
   - intent: nlu_fallback
-  - action: utter_please_rephrase
+  - action: utter_please_rephrase 
 actions:
 - utter_cleaning_boat
 - utter_did_that_help
