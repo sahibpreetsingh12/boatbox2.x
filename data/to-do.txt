@@ -1,3 +1,36 @@
+webistes to be checked:-
+    https://njboatingsafetyclasses.com/boating-faq/?doing_wp_cron=1606802124.0678899288177490234375
+
+# QUESTIONS:-
+
+website  (https://www.discoverboating.ca/beginner/faq.aspx)
+
+1. What is the best time to buy boat ?  
+
+2. Where can I learn the waterway rules? 
+
+3. Do I need a licence to operate a boat?
+
+4. If I buy used, how do I know the boat is in good condition?
+
+5. How big of a boat will I need?
+
+website (https://www.discoverboating.ca/buying/faq.aspx)
+
+6. What is the best insurance coverage for my boat?
+
+7. Should I buy a certified boat?
+
+website (https://www.discoverboating.ca/owning/faq.aspx)
+
+8. How do I license my boat?
+
+9. What are the things I need to consider when trailering a boat for the first time?
+
+10. What is the best place to store my boat?
+
+
+
 # SARAB SIR LAST MEET
 # to be done
 sentence based parsing
@@ -25,19 +58,12 @@ have to ask questions for making rich user interface at boatbox
 
 # have to include wrong words as synoym for some words in Boat part entity(IMPORTANT ****)
 
+
+# Fallback poilicy is not implemented 
 # OUT of Scope Intent 
     1. Will create Lookup tables 
 
 
 
 
-## KAMLJIT MASTERCLASS
-1.
-    1. ask username
-    2. Top 20 tweets of him and his followers
-    3. Important keywords 
-        we then recommend
-
-2. see trends
-    1. see parameters and then rank it.
 

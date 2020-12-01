@@ -15,7 +15,7 @@ intents:
 - mood_unhappy
 - repair_core
 - out_of_scope
-- faq
+- specificq
 entities:
 - boat_manufacturer
 - boat_info
@@ -75,5 +75,5 @@ actions:
 - utter_out_of_scope
 - utter_thankyou
 - action_repair
-- action_faq
+- action_specificq
 - action_greet

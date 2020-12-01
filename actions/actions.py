@@ -68,10 +68,10 @@ class ActionGreet(Action):
         return [model,embeddings,solutions]
 
 
-class ActionFAQ(ActionGreet):
+class Action_SpecificQ(ActionGreet):
 
     def name(self) -> Text:
-        return "action_faq"
+        return "action_specificq"
     
     def run(self ,dispatcher: CollectingDispatcher,
             tracker: Tracker,

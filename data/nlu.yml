@@ -170,7 +170,8 @@ nlu:
     - who is US president
     - who is President of USA?
     - what about deep learning books
-- intent: faq
+    - Need some help for Playing cricket.
+- intent: specificq
   examples: |
     - what to do my [odometer](boat_info) is not working?
     - my [odometer](boat_info) is not working what can can i do?

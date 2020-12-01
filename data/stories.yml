@@ -105,12 +105,12 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: faq
+- story: specificq
   steps:
     - intent: greet
     - action: action_greet
-    - intent: faq
-    - action: action_faq
+    - intent: specificq
+    - action: action_specificq
 - story: interactive_story_1
   steps:
   - intent: greet
