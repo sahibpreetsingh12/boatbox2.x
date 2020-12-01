@@ -1,9 +1,36 @@
 version: "2.0"
-
+stories:
+- story: Story from Conversation ID 99862dcbcf06467c8bb30ef4e91812ad
+  steps:
+  - intent: greet
+  - action: action_greet
+  - intent: repair_hull
+    entities:
+    - boat_info: hull
+  - slot_was_set:
+    - boat_info:
+      - hull
+  - action: action_repair
+  - slot_was_set:
+    - boat_info: null
+  - action: utter_did_that_help
+  - intent: specificq
+    entities:
+    - boat_info: livewell
+  - slot_was_set:
+    - boat_info:
+      - hull
+  - slot_was_set:
+    - boat_info:
+      - livewell
+  - action: action_specificq
+  - slot_was_set:
+    - boat_info: null
+  - slot_was_set:
+    - engine_series: null
+  - action: utter_did_that_help
 rules:
-
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
-
