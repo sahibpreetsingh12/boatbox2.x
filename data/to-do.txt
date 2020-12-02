@@ -66,4 +66,16 @@ have to ask questions for making rich user interface at boatbox
 
 
 
+december 2
 
+There will be some questions like :-
+    1. My boat is not starting
+    2. I am having issues with my boat
+    3. When i turned the key on my boat nothing happens
+so to handle these kind of open ended questions we will make Hard Coded Utter response
+
+OUr pipeline willbe changed accordngly so fisrtly we will see if user input is matching with any hard code response
+if not then we will turn the conversation to cosine similarity logic
+
+
+point 2. :- So answers in faq.csv should not be correlated to each other in any sense

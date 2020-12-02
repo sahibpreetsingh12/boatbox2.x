@@ -2,33 +2,6 @@ version: "2.0"
 
 stories:
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: action_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: action_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: action_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
-
 - story: say goodbye
   steps:
   - intent: goodbye
@@ -36,12 +9,12 @@ stories:
   - intent: thankyou
   - action: utter_thankyou
 
-- story: ask repair hull
+- story: ask repair_hull
   steps:
   - intent: greet
   - action: action_greet
-  - intent: repair_hull
-  - action: action_repair
+  - intent: specificq
+  - action: action_specificq
   - action: utter_did_that_help
   - intent: no_repair_required
   - action: utter_no_repair_required
@@ -50,12 +23,12 @@ stories:
   - intent: thankyou
   - action: utter_thankyou
 
-- story: ask repair core
+- story: ask repair_core
   steps:
   - intent: greet
   - action: action_greet
-  - intent: repair_core
-  - action: action_repair
+  - intent: specificq
+  - action: action_specificq
   - action: utter_did_that_help
   - intent: no_repair_required
   - action: utter_no_repair_required
@@ -63,6 +36,19 @@ stories:
   - action: utter_happy
   - intent: thankyou
   - action: utter_thankyou
+
+- story: ask not_starting
+  steps:
+  - intent: greet
+  - action: action_greet
+  - intent: specificq
+  - action: action_specificq
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+  - intent: thankyou
+  - action: utter_thankyou
+
 
 - story: ask out_of_scope
   steps:
@@ -73,9 +59,8 @@ stories:
 
 - story: ask cleaning_boat
   steps:
-  - intent: cleaning_boat
-  - action: utter_cleaning_boat
-  - action: utter_cleaning_boat
+  - intent: specificq
+  - action: action_specificq
   - intent: no_repair_required
   - action: utter_no_repair_required
   - intent: thankyou
@@ -85,8 +70,8 @@ stories:
   steps:
   - intent: greet
   - action: action_greet
-  - intent: cleaning_boat 
-  - action: utter_cleaning_boat
+  - intent: specificq
+  - action: action_specificq
   - action: utter_did_that_help
   - intent: thankyou
   - action: utter_thankyou
@@ -95,8 +80,8 @@ stories:
   steps:
   - intent: greet
   - action: action_greet
-  - intent: repair_hull 
-  - action: action_repair
+  - intent: specificq
+  - action: action_specificq
   - action: utter_did_that_help
   - intent: no_repair_required
   - action: utter_no_repair_required
@@ -112,19 +97,19 @@ stories:
     - intent: specificq
     - action: action_specificq
 
-- story: interactive_story_1
+- story: interactive_story_2
   steps:
   - intent: greet
   - action: action_greet
-  - intent: repair_hull
+  - intent: specificq
     entities:
-    - boat_info: hull
+    - boat_part: hull
   - slot_was_set:
-    - boat_info:
+    - boat_part:
       - hull
-  - action: action_repair
+  - action: action_specificq
   - slot_was_set:
-    - boat_info: null
+    - boat_part: null
   - action: utter_did_that_help
   - intent: out_of_scope
   - action: utter_out_of_scope
@@ -135,25 +120,25 @@ stories:
   steps:
   - intent: greet
   - action: action_greet
-  - intent: repair_hull
+  - intent: specificq
     entities:
-    - boat_info: hull
+    - boat_part: hull
   - slot_was_set:
-    - boat_info:
+    - boat_part:
       - hull
-  - action: action_repair
+  - action: action_specificq
   - slot_was_set:
-    - boat_info: null
+    - boat_part: null
   - action: utter_did_that_help
   - intent: specificq
     entities:
-    - boat_info: livewell
+    - boat_part: livewell
   - slot_was_set:
-    - boat_info:
+    - boat_part:
       - livewell
   - action: action_specificq
   - slot_was_set:
-    - boat_info: null
+    - boat_part: null
   - slot_was_set:
     - engine_series: null
   - action: utter_did_that_help

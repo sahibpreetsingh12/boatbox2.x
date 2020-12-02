@@ -16,31 +16,31 @@ import pandas as pd
 
 
 from sentence_transformers import SentenceTransformer, util
-class ActionRepair(Action):
+# class ActionRepair(Action):
 
-    def name(self) -> Text:
-        return "action_repair"
+#     def name(self) -> Text:
+#         return "action_repair"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        parts= tracker.get_slot("boat_info")
+#         parts= tracker.get_slot("boat_info")
 
-        part=parts[0] # we have extracted a list so extracting just the first entity
-        if part=='hull':
+#         part=parts[0] # we have extracted a list so extracting just the first entity
+#         if part=='hull':
          
-            dispatcher.utter_message(text="""There are two scenarios where a %s can be damaged – one is when the
-      hull is damaged above the waterline, the second when it is damaged below the
-      waterline.For first scenario take it out and dry it thoroughly.For hull repair,
-      a basic fibreglass repair kit is used, using which the damaged section is removed
-      in a circular cut. The part can be then patched using either fibreglass and
-      the proper adhesives or the putties available."""%(part))
-        elif part=='core':
-            dispatcher.utter_message(text="""%s damage needs a professional help I would say pls visit a boat 
-            repair shop near you"""%(part))
+#             dispatcher.utter_message(text="""There are two scenarios where a %s can be damaged – one is when the
+#       hull is damaged above the waterline, the second when it is damaged below the
+#       waterline.For first scenario take it out and dry it thoroughly.For hull repair,
+#       a basic fibreglass repair kit is used, using which the damaged section is removed
+#       in a circular cut. The part can be then patched using either fibreglass and
+#       the proper adhesives or the putties available."""%(part))
+#         elif part=='core':
+#             dispatcher.utter_message(text="""%s damage needs a professional help I would say pls visit a boat 
+#             repair shop near you"""%(part))
 
-        return [SlotSet("boat_info", None)]
+#         return [SlotSet("boat_info", None)]
 
 
 
@@ -84,20 +84,82 @@ class Action_SpecificQ(ActionGreet):
 
             test=model.encode(message)
 
-            boat_info = tracker.get_slot("boat_info") # this is a list slot so we will store all entities 
+            #boat_part
+            boat_part_slot = tracker.get_slot("boat_part") # this is a list slot so we will store all entities 
                                                     # extracted from an intent but if no entity is extracted
                                                     # tracker returns None Type value
 
-            boat_info=( [] if boat_info is None else boat_info)  # to convert None type to empty list
+            boat_part_slot=( [] if boat_part_slot is None else boat_part_slot)  # to convert None type to empty list
 
-            engine_series=tracker.get_slot("engine_series")
+            # print(boat_part_slot,tracker.slots)
 
-            engine_series= ( [] if engine_series is None else engine_series) # to convert None type to empty list
+            # engine_series
+            engine_series_slot=tracker.get_slot("engine_series")
 
-            # Now after getting all diffrent types of slots No we have added them to boat_info variable 
-            # and then will make pattern to see any of these are available in our answers file
-            total_info=boat_info+engine_series
+            engine_series_slot= ( [] if engine_series_slot is None else engine_series_slot) # to convert None type to empty list
+
             
+            # boat_manufacturer
+
+            boat_manufacturer_slot=tracker.get_slot("boat_manufacturer")
+
+            boat_manufacturer_slot= ( [] if boat_manufacturer_slot is None else boat_manufacturer_slot)
+
+
+            # engine_manufacturer
+            engine_manufacturer_slot=tracker.get_slot("engine_manufacturer")
+
+            engine_manufacturer_slot= ( [] if engine_manufacturer_slot is None else engine_manufacturer_slot)
+
+            # boat_length
+            boat_length_slot=tracker.get_slot("boat_length")
+
+            boat_length_slot= ( [] if boat_length_slot is None else boat_length_slot)
+
+            # boat_model_slot
+
+            boat_model_slot=tracker.get_slot("boat_model")
+
+            boat_model_slot= ( [] if boat_model_slot is None else boat_model_slot)
+
+            # year_of_manufacturing_slot
+
+            year_of_manufacturing_slot=tracker.get_slot("year_of_manufacturing")
+
+            year_of_manufacturing_slot= ( [] if year_of_manufacturing_slot is None else year_of_manufacturing_slot)
+
+            # consumable
+
+            consumable_slot=tracker.get_slot("consumable")
+
+            consumable_slot= ( [] if consumable_slot is None else consumable_slot)
+
+            # process
+
+            process_slot=tracker.get_slot("process")
+
+            process_slot= ( [] if process_slot is None else process_slot)
+
+            # material
+
+            material_slot=tracker.get_slot("material")
+
+            material_slot= ( [] if material_slot is None else material_slot)
+
+
+
+
+            total_info=boat_part_slot+engine_series_slot+boat_manufacturer_slot+engine_manufacturer_slot+boat_length_slot+boat_model_slot+year_of_manufacturing_slot+consumable_slot+process_slot+material_slot
+            
+
+                
+     
+            # Now after getting all diffrent types of slots No we have added them to boat_part_slot variable 
+            # and then will make pattern to see any of these are available in our answers file
+            
+            # total_info=boat_part_slot+engine_series_slot
+            
+            print(total_info)
             sols_temp=pd.DataFrame(solutions) # converting our series to datatframe
              
             sols_temp.rename(columns = {0:'solutions'},  inplace = True)  # renaming the column
@@ -137,11 +199,17 @@ class Action_SpecificQ(ActionGreet):
                         solution=sols_temp.iloc[[sol_index]]['solutions'][0]
 
                         dispatcher.utter_message(text=solution)
-                        return [SlotSet("boat_info", None),SlotSet("engine_series", None)]
+                        return [SlotSet("boat_part", None),SlotSet("engine_series", None),
+                        SlotSet("boat_manufacturer", None),SlotSet("engine_manufacturer", None),SlotSet("boat_length", None)
+                        ,SlotSet("boat_model", None),SlotSet("year_of_manufacturing", None),SlotSet("consumable", None)
+                        ,SlotSet("process", None),SlotSet("material", None)]
                     else:
                         dispatcher.utter_message(text="Sorry  But can you Rephrase it again")
 
-                        return [SlotSet("boat_info", None),SlotSet("engine_series", None)]
+                        return [SlotSet("boat_part", None),SlotSet("engine_series", None),
+                        SlotSet("boat_manufacturer", None),SlotSet("engine_manufacturer", None),SlotSet("boat_length", None)
+                        ,SlotSet("boat_model", None),SlotSet("year_of_manufacturing", None),SlotSet("consumable", None)
+                        ,SlotSet("process", None),SlotSet("material", None)]
                 
 
 
@@ -149,14 +217,19 @@ class Action_SpecificQ(ActionGreet):
                     dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution in my dictionary
                      for your query. But you can rephrase and Try It Again :) """)
 
-                    return [SlotSet("boat_info", None),SlotSet("engine_series", None)]
+                    return [SlotSet("boat_part", None),SlotSet("engine_series", None),
+                        SlotSet("boat_manufacturer", None),SlotSet("engine_manufacturer", None),SlotSet("boat_length", None)
+                        ,SlotSet("boat_model", None),SlotSet("year_of_manufacturing", None),SlotSet("consumable", None)
+                        ,SlotSet("process", None),SlotSet("material", None)]
             
             except:
 
                 dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution for
                     your query. But you can rephrase and Try It Again :) """)
 
-                return [SlotSet("boat_info", None),SlotSet("engine_series", None)]
-
+                return [SlotSet("boat_part", None),SlotSet("engine_series", None),
+                        SlotSet("boat_manufacturer", None),SlotSet("engine_manufacturer", None),SlotSet("boat_length", None)
+                        ,SlotSet("boat_model", None),SlotSet("year_of_manufacturing", None),SlotSet("consumable", None)
+                        ,SlotSet("process", None),SlotSet("material", None)]
 
     
