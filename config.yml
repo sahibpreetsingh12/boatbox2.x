@@ -20,7 +20,10 @@ pipeline:
   - name: ResponseSelector
     epochs: 100
     retrieval_intent: chitchat
-    
+  - name: ResponseSelector
+    epochs: 100
+    retrieval_intent: generalQ
+
   - name: FallbackClassifier
     threshold: 0.5
     ambiguity_threshold: 0.1

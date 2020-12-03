@@ -79,3 +79,16 @@ if not then we will turn the conversation to cosine similarity logic
 
 
 point 2. :- So answers in faq.csv should not be correlated to each other in any sense
+
+
+
+Left for time - 23
+    30- Answer is canada specific
+
+ 
+
+ 3 december 2020
+ # ask sarab sir 
+    where boatbox will be used because some questions are location specific:-
+            1. liike where can i register my boat
+            2. how to register a boat in florida
