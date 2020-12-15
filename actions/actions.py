@@ -62,7 +62,7 @@ class ActionGreet(Action):
         df=pd.read_csv('/home/sahib/Downloads/faq.csv')
         sentences=df['Questions'].str.replace("\n", "", case = False).tolist()
         solutions=df['Answers'].str.replace("\n", "", case = False).tolist()
-
+        
         embeddings = model.encode(sentences)
 
         return [model,embeddings,solutions]
@@ -201,12 +201,12 @@ class Action_SpecificQ(ActionGreet):
                         cos_sim = util.pytorch_cos_sim(test, emb) #  cosine similarity
                             
                         cos_sim=cos_sim.tolist()
+                        print(cos_sim)
                         
                         sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
-
-                        # # p=pd.DataFrame(list(zip(cos_sim,solutions)),columns=['similarity','solutions'])
-                        solution=sols_temp.iloc[[sol_index]]['solutions'][0]
-
+                        print(sol_index)
+                        solution=sols_temp.iloc[[sol_index]]['solutions'][sol_index]
+                       
                         dispatcher.utter_message(text=solution)
                         return [SlotSet("boat_part", None),SlotSet("engine_series", None),
                         SlotSet("boat_manufacturer", None),SlotSet("engine_manufacturer", None),SlotSet("boat_length", None)
