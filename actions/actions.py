@@ -16,33 +16,8 @@ import pandas as pd
 
 
 from sentence_transformers import SentenceTransformer, util
-# class ActionRepair(Action):
 
-#     def name(self) -> Text:
-#         return "action_repair"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-#         parts= tracker.get_slot("boat_info")
-
-#         part=parts[0] # we have extracted a list so extracting just the first entity
-#         if part=='hull':
-         
-#             dispatcher.utter_message(text="""There are two scenarios where a %s can be damaged – one is when the
-#       hull is damaged above the waterline, the second when it is damaged below the
-#       waterline.For first scenario take it out and dry it thoroughly.For hull repair,
-#       a basic fibreglass repair kit is used, using which the damaged section is removed
-#       in a circular cut. The part can be then patched using either fibreglass and
-#       the proper adhesives or the putties available."""%(part))
-#         elif part=='core':
-#             dispatcher.utter_message(text="""%s damage needs a professional help I would say pls visit a boat 
-#             repair shop near you"""%(part))
-
-#         return [SlotSet("boat_info", None)]
-
-
+from spellcheck import correction
 
 class ActionGreet(Action):
 
@@ -68,10 +43,31 @@ class ActionGreet(Action):
         return [model,embeddings,solutions]
 
 
+
 class Action_SpecificQ(ActionGreet):
 
     def name(self) -> Text:
         return "action_specificq"
+    
+    # sols_temp --> Dataframe, checker_index ---> index, embeddings ---> embeddings of questions, 
+    # user_emb_msg--> embeddings of user input
+    def Answer_finder(self,sols_temp,checker_index,embeddings,user_msg_emb):
+        sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
+        sols_temp.drop(columns=['index'],inplace=True) # dropping that unnecessary index column
+
+        emb= [embeddings[i] for i in checker_index] # stroing list of only those embeddings of questions 
+        # whose corresponding answer had the entity
+
+        cos_sim = util.pytorch_cos_sim(user_msg_emb, emb) #  cosine similarity
+            
+        cos_sim=cos_sim.tolist()
+        print(cos_sim)
+        
+        sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
+        print(sol_index)
+        solution=sols_temp.iloc[[sol_index]]['solutions'][sol_index]
+
+        return solution
     
     def run(self ,dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -83,7 +79,7 @@ class Action_SpecificQ(ActionGreet):
             message=tracker.latest_message['text']
            
             print(message)
-            test=model.encode(message)
+            user_msg_emb=model.encode(message)
 
             #boat_part
             boat_part_slot = tracker.get_slot("boat_part") # this is a list slot so we will store all entities 
@@ -166,8 +162,6 @@ class Action_SpecificQ(ActionGreet):
             # Now after getting all diffrent types of slots No we have added them to boat_part_slot variable 
             # and then will make pattern to see any of these are available in our answers file
             
-            # total_info=boat_part_slot+engine_series_slot
-            
             print(total_info)
             sols_temp=pd.DataFrame(solutions) # converting our series to datatframe
              
@@ -176,7 +170,8 @@ class Action_SpecificQ(ActionGreet):
             try: # to handle any kind of exceptions in code
                 if len(total_info)!=0 : # if an entity is extracted from user intent
 
-                    
+                    total_info=[correction(i) for i in total_info]
+                    print("New total info is ",total_info)
                     # to search all the strings in a list wthether in column or not                                     
                     # https://stackoverflow.com/questions/17972938/check-if-a-string-in-a-pandas-dataframe-column-is-in-a-list-of-strings
                     pattern = '|'.join(total_info)
@@ -188,24 +183,9 @@ class Action_SpecificQ(ActionGreet):
 
                     sols_temp=sols_temp.iloc[checker_index] # now storing only those solutions that are shortlisted
 
-                    if len(sols_temp) !=0: # if no solution is found after cosine similarity that can be because some 
-                        # entities will not be present in your solution set
+                    if len(sols_temp) !=0: # if some sol is found after cosine sim.
 
-                        sols_temp.reset_index(level=0, inplace=True) # setting indexes again to normal
-
-                        sols_temp.drop(columns=['index'],inplace=True) # dropping that unnecessary index column
-
-                        emb= [embeddings[i] for i in checker_index] # stroing list of only those embeddings of questions 
-                        # whose corresponding answer had the entity
-
-                        cos_sim = util.pytorch_cos_sim(test, emb) #  cosine similarity
-                            
-                        cos_sim=cos_sim.tolist()
-                        print(cos_sim)
-                        
-                        sol_index=cos_sim[0].index(max(cos_sim[0])) # to get the index of maximum cosine similarity
-                        print(sol_index)
-                        solution=sols_temp.iloc[[sol_index]]['solutions'][sol_index]
+                        solution=self.Answer_finder(sols_temp,checker_index,embeddings,user_msg_emb)
                        
                         dispatcher.utter_message(text=solution)
                         return [SlotSet("boat_part", None),SlotSet("engine_series", None),
@@ -213,7 +193,8 @@ class Action_SpecificQ(ActionGreet):
                         ,SlotSet("boat_model", None),SlotSet("year_of_manufacturing", None),SlotSet("consumable", None)
                         ,SlotSet("process", None),SlotSet("material", None)]
                     else:
-                        dispatcher.utter_message(text="Sorry  But can you Rephrase it again")
+
+                        dispatcher.utter_message(text="Sorry could not find perfect solution pls try again")
 
                         return [SlotSet("boat_part", None),SlotSet("engine_series", None),
                         SlotSet("boat_manufacturer", None),SlotSet("engine_manufacturer", None),SlotSet("boat_length", None)

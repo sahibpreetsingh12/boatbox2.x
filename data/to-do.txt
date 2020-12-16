@@ -1,34 +1,4 @@
 webistes to be checked:-
-    https://njboatingsafetyclasses.com/boating-faq/?doing_wp_cron=1606802124.0678899288177490234375
-
-# QUESTIONS:-
-
-website  (https://www.discoverboating.ca/beginner/faq.aspx)
-
-1. What is the best time to buy boat ?  
-
-2. Where can I learn the waterway rules? 
-
-3. Do I need a licence to operate a boat?
-
-4. If I buy used, how do I know the boat is in good condition?
-
-5. How big of a boat will I need?
-
-website (https://www.discoverboating.ca/buying/faq.aspx)
-
-6. What is the best insurance coverage for my boat?
-
-7. Should I buy a certified boat?
-
-website (https://www.discoverboating.ca/owning/faq.aspx)
-
-8. How do I license my boat?
-
-9. What are the things I need to consider when trailering a boat for the first time?
-
-10. What is the best place to store my boat?
-
 
 
 # SARAB SIR LAST MEET
@@ -81,14 +51,16 @@ if not then we will turn the conversation to cosine similarity logic
 point 2. :- So answers in faq.csv should not be correlated to each other in any sense
 
 
+##################################3
 
-Left for time - 23
-    30- Answer is canada specific
+DEC -16
 
- 
+1. Have to Understand SPell correction code
+2. What is Levenshtein distance
 
- 3 december 2020
- # ask sarab sir 
-    where boatbox will be used because some questions are location specific:-
-            1. liike where can i register my boat
-            2. how to register a boat in florida
+and MAKE class of our code
+
+
+
+###### NEXT WEEK
+
