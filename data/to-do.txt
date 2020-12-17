@@ -58,7 +58,6 @@ DEC -16
 1. Have to Understand SPell correction code
 2. What is Levenshtein distance
 
-and MAKE class of our code
 
 
 
