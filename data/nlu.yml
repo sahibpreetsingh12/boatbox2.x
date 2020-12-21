@@ -98,6 +98,7 @@ nlu:
     - what is 2+2?
     - who is President of USA?
     - what about deep learning books
+    - need some support to play ice hockey in canada
 - intent: specificq
   examples: |
     - what to do my [odometer](boat_part) is not working?

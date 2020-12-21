@@ -13,7 +13,6 @@ intents:
 - chitchat
 - generalQ
 - bot_challenge
-- nlu_fallback
 entities:
 - boat_manufacturer
 - boat_part
@@ -67,8 +66,9 @@ slots:
     initial_value: []
     influence_conversation: false
 responses:
-  utter_please_rephrase:
-  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
+  # utter_default:
+  # - text: Sorry I didn't get that. Can you rephrase we are from Default action for
+  #     fallback?
   utter_did_that_help:
   - text: Do you Need any other help.
   - text: Can i help you some other way.
@@ -228,6 +228,9 @@ responses:
   - text: I am called Boatbox bot!
   utter_chitchat/ask_weather:
   - text: Oh, have a look at it.[check weather](https://www.accuweather.com/en)
+  utter_please_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase? NLY fallback
+      implemented
 actions:
 - utter_please_rephrase
 - utter_did_that_help
@@ -238,6 +241,7 @@ actions:
 - utter_thankyou
 - action_specificq
 - action_greet
+- action_fallback_dec21
 - utter_generalQ/mooring-query
 - utter_generalQ/teak-surfing-query
 - utter_generalQ/min-age-for-ski-craft-query
