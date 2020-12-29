@@ -13,8 +13,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import pandas as pd
-
-
+import ast 
 from sentence_transformers import SentenceTransformer, util
 
 from spellcheck import correction
@@ -24,14 +23,6 @@ class ActionGreet(Action):
 
     def name(self) -> Text:
         return "action_greet"
-    
-    def run(self ,dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
-
-            dispatcher.utter_message(text="Hi how can i help you with your boat")
-
-            return []
 
     def loader(self):
         model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
@@ -40,9 +31,28 @@ class ActionGreet(Action):
         solutions=df['Answers'].str.replace("\n", "", case = False).tolist()
         
         embeddings = model.encode(sentences)
+        # print(embeddings.shape[0])
+        # embeddings_list=[]
+        # for i in range(embeddings.shape[0]):
+        #     print(embeddings[i,:].shape,type(embeddings[i,:]))
+        df_sol={'embeddings':embeddings.tolist(),'solutions':solutions}
 
-        return [model,embeddings,solutions]
+        df_sol_req=pd.DataFrame(df_sol)
 
+        df_sol_req.to_csv('/home/sahib/Downloads/embeddings-boatbox-specificq.csv')
+
+        return []
+
+    
+    def run(self ,dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
+            self.loader()
+            dispatcher.utter_message(text="Hi how can i help you with your boat")
+
+            return []
+
+    
 
 
 class Action_SpecificQ(ActionGreet):
@@ -75,8 +85,19 @@ class Action_SpecificQ(ActionGreet):
             domain: Dict[Text,Any]) -> List[Dict[Text,Any]]: 
 
 
-            model,embeddings,solutions = ActionGreet.loader(self)
+            # model1,embeddings1,solutions1 = ActionGreet.loader(self)
+            model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
 
+            dataframe_req=pd.read_csv('/home/sahib/Downloads/embeddings-boatbox-specificq.csv')
+
+            ls,solutions=dataframe_req['embeddings'].tolist(),dataframe_req['solutions'].tolist()
+
+            embeddings=[]
+            for i in range(len(dataframe_req)): # converting list of strings to list of list
+                                                # list of strings we get because we used .tolist() function to convert series 
+                                                # to list
+                embeddings.append(ast.literal_eval(ls[i]))
+                
             message=tracker.latest_message['text']
            
             print(message)
@@ -113,7 +134,7 @@ class Action_SpecificQ(ActionGreet):
                     if len(sols_temp) !=0: # if some sol is found after entity matching.
 
                         solution=self.Answer_finder(sols_temp,checker_index,embeddings,user_msg_emb)
-                       
+                        
                         dispatcher.utter_message(text=solution)
 
                         return slot_setter(name_entities)
@@ -122,12 +143,12 @@ class Action_SpecificQ(ActionGreet):
                         return slot_setter(name_entities)
                 else:
                     dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution in my dictionary
-                     for your query. But you can rephrase and Try It Again :) """)
+                        for your query. But you can rephrase and Try It Again :) """)
 
                     return slot_setter(name_entities)
                        
             except:
 
                 dispatcher.utter_message(text="""Hey Really sorry but I couldn't find a Perfect Solution for
-                    your query. But you can rephrase and Try It Again :) """)
+                    your query. But you can rephrase and Try It Again please :) """)
                 return slot_setter(name_entities)
