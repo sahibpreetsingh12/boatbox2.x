@@ -8,7 +8,7 @@ pipeline:
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
-  - name: LexicalSyntacticFeaturizer
+  - name: LexicalSyntacticFeaturizer  #https://blog.rasa.com/lexical-features-from-spacy-for-rasa/
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
     analyzer: char_wb
