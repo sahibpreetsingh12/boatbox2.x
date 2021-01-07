@@ -6,20 +6,33 @@ pipeline:
 # # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
 # # If you'd like to customize it, uncomment and adjust the pipeline.
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
-  - name: WhitespaceTokenizer
+  - name: SpacyNLP   # this is nmae of language model we want to use
+    model: "en_core_web_lg"
+  - name: SpacyTokenizer
+  - name: SpacyFeaturizer
+    pooling: mean
+ 
   - name: RegexFeaturizer
+  - name: SpacyEntityExtractor
   - name: LexicalSyntacticFeaturizer  #https://blog.rasa.com/lexical-features-from-spacy-for-rasa/
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 1
     max_ngram: 4
+    # DIET is by default used for both Intent and Entity classfication 
+    # but we can turn this thing feature of DIET off 
   - name: DIETClassifier
+    # entity_recognition: False
     epochs: 100
   - name: EntitySynonymMapper
+
+  # every time we create retrieval intent we have to define those retrieval intents over here
+  # retrieval intent 1
   - name: ResponseSelector
     epochs: 100
     retrieval_intent: chitchat
+   # retrieval intent 2
   - name: ResponseSelector
     epochs: 100
     retrieval_intent: generalQ
